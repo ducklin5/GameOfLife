@@ -18,6 +18,8 @@ void wait( float seconds){
 struct Vect {
 	int x;
 	int y;
+	Vect(int x, int y) : x(x), y(y) {} ;
+	Vect(){};
 };
 
 struct Cell {
@@ -51,11 +53,6 @@ void Cell::process(){
 		}
 	}
 	
-	#ifdef DEBUG
-	move(this->pos.y, this->pos.x*2 + 50);
-	printw("%d",aliveNeighbors);
-	#endif
-
 	if (this->alive and (aliveNeighbors < 2 or aliveNeighbors > 3)){
 		this->alive = false;
 	}
@@ -75,11 +72,9 @@ void Cell::saveState(){
 
 void Cell::draw(int offX, int offY){
 	move(this->pos.y + offY, this->pos.x + offX);
-	printw((this->alive ? "█": "░"));
-#ifdef DEBUG
-	move(this->pos.y + offY, this->pos.x + offX + 50);
-	printw((this->wasAlive ? "█": "░"));
-#endif
+	bool state [2] = {this->alive, this->wasAlive};
+	//printw(( this->alive ? "█": (this->wasAlive ? "▓" : "░" )));
+	printw(( this->alive ? "█": "░" ));
 }
 
 struct World {
@@ -97,6 +92,9 @@ struct World {
 	int aliveCount;
 	int eqGen;
 };
+int modulo(int x,int N){
+    return (x % N + N) %N;
+}
 
 World::World(int x, int y, int w, int h, void (&excitor)(Cell*)){
 	this->pos.x = x;
@@ -121,8 +119,10 @@ World::World(int x, int y, int w, int h, void (&excitor)(Cell*)){
 			int k=0;
 			for(int subY = -1; subY <= 1; subY++){
 				for(int subX = -1; subX <= 1; subX++){
-					int nJ = j + subY; 
-					int nI = i + subX;
+					int nJ = modulo((j + subY), this->size.y); 
+					int nI = modulo((i + subX), this->size.x);
+					//int nJ = (j + subY); 
+					//int nI = (i + subX);
 					// exclude itself from the list of neighbors
 					if (!(nJ == j and nI==i) and nJ > -1 and nJ < h and nI > -1 and nI < w){
 						focusC->neighbors[k] = &this->cells[nJ*w+nI];
@@ -181,30 +181,28 @@ void World::draw(){
 	printw("Equilibrium: %d\n", this->eqGen);
 }
 
-void A(Cell *cell){
-	cell->alive = ( (cell->pos.x%10) > 8) && (bool)(rand()%4);
+bool match(Vect input, int n, Vect *pointSet){
+	for(int i = 0; i < n; i++){
+		if(input.x == pointSet[i].x and input.y == pointSet[i].y){
+			return true;
+		}
+	}
+	return false;
 }
 void B(Cell *cell){
-	cell->alive = !(rand() % 4);
+	int n = 7;
+	Vect points[n] = {Vect(11,11), Vect(12,11), Vect(12,13), Vect(14,12), Vect(15,11), Vect(16,11), Vect(17,11)}; 
+	
+	cell->alive = rand()%2;
+
 }
 
-bool isPerfectSquare(int x) 
-{ 
-    int s = sqrt(x); 
-    return (s*s == x); 
-} 
-  
-// Returns true if n is a Fibinacci Number, else false 
-bool isFib(int n) 
-{ 
-    // n is Fibinacci if one of 5*n*n + 4 or 5*n*n - 4 or both 
-    // is a perferct square 
-    return isPerfectSquare(5*n*n + 4) || 
-           isPerfectSquare(5*n*n - 4); 
-} 
-
-void C(Cell *cell){
-	cell->alive = isFib(cell->pos.x * cell->pos.y);
+void A(Cell *cell){
+	int x = cell->pos.x;
+	int y = cell->pos.y;
+	
+	srand(x*y%50);
+	cell->alive = rand()%2;
 }
 
 int main (void)
@@ -216,9 +214,8 @@ int main (void)
 	getmaxyx(stdscr, termCols, termRows);
 	srand(time(0));
 	
-	World myA = World(2,2,90,15,A); myA.draw();
-	World myB = World(2,22,90,15,B); myB.draw();
-	World myC = World(2,42,90,15,C); myC.draw();
+	World myA = World(2,2,100,100,B); myA.draw();
+	//World myB = World(2,22,90,15,B); myB.draw();
 
 	move(0,0);
 	printw("Press Enter to begin!");
@@ -232,11 +229,10 @@ int main (void)
 		getmaxyx(stdscr, termCols, termRows);
 		
 		myA.update(); myA.draw();
-		myB.update(); myB.draw();
-		myC.update(); myC.draw();
+		//myB.update(); myB.draw();
 
 		refresh();
-		wait(0.1);
+		wait(0.05);
 		
 	}
 	
