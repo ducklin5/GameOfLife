@@ -1,0 +1,22 @@
+#include <sys/ioctl.h>
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+void wait( float seconds){
+	usleep ( seconds * 1e6 );
+}
+
+int main (void)
+{
+	
+	while(1){
+		struct winsize w;
+		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+		cout << "lines " <<  w.ws_row << "\n";
+		cout <<"columns " << w.ws_col << "\r\b\r";
+		wait(0.25);
+	}
+	return 0;
+}
