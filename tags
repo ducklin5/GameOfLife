@@ -1,0 +1,42 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+A	gameOfLife.cpp	/^void A(Cell *cell){$/;"	f
+B	gameOfLife.cpp	/^void B(Cell *cell){$/;"	f
+C	gameOfLife.cpp	/^void C(Cell *cell){$/;"	f
+Cell	gameOfLife.cpp	/^Cell::Cell(int x=0, int y=0, bool alive=true){$/;"	f	class:Cell
+Cell	gameOfLife.cpp	/^struct Cell {$/;"	s	file:
+Vect	gameOfLife.cpp	/^struct Vect {$/;"	s	file:
+World	gameOfLife.cpp	/^World::World(int x, int y, int w, int h, void (&excitor)(Cell*)){$/;"	f	class:World
+World	gameOfLife.cpp	/^struct World {$/;"	s	file:
+alive	gameOfLife.cpp	/^	bool alive;$/;"	m	struct:Cell	file:
+aliveCount	gameOfLife.cpp	/^	int aliveCount;$/;"	m	struct:World	file:
+analyze	gameOfLife.cpp	/^void World::analyze(){$/;"	f	class:World
+cellCount	gameOfLife.cpp	/^	int cellCount;$/;"	m	struct:World	file:
+cells	gameOfLife.cpp	/^	Cell * cells;$/;"	m	struct:World	file:
+draw	gameOfLife.cpp	/^void Cell::draw(int offX, int offY){$/;"	f	class:Cell
+draw	gameOfLife.cpp	/^void World::draw(){$/;"	f	class:World
+eqGen	gameOfLife.cpp	/^	int eqGen;$/;"	m	struct:World	file:
+excite	gameOfLife.cpp	/^	void (*excite)(Cell*);$/;"	m	struct:World	file:
+gen	gameOfLife.cpp	/^	int gen;$/;"	m	struct:World	file:
+isFib	gameOfLife.cpp	/^bool isFib(int n) $/;"	f
+isPerfectSquare	gameOfLife.cpp	/^bool isPerfectSquare(int x) $/;"	f
+lifeSpan	gameOfLife.cpp	/^	int lifeSpan = 0;$/;"	m	struct:Cell	file:
+main	gameOfLife.cpp	/^int main (void)$/;"	f
+neighbors	gameOfLife.cpp	/^	Cell* neighbors[8] = {NULL};$/;"	m	struct:Cell	file:
+pos	gameOfLife.cpp	/^	Vect pos;$/;"	m	struct:Cell	file:
+pos	gameOfLife.cpp	/^	Vect pos;$/;"	m	struct:World	file:
+process	gameOfLife.cpp	/^void Cell::process(){$/;"	f	class:Cell
+saveState	gameOfLife.cpp	/^void Cell::saveState(){$/;"	f	class:Cell
+size	gameOfLife.cpp	/^	Vect size;$/;"	m	struct:World	file:
+termCols	gameOfLife.cpp	/^int termCols;$/;"	v
+termRows	gameOfLife.cpp	/^int termRows;$/;"	v
+update	gameOfLife.cpp	/^void World::update(){$/;"	f	class:World
+wait	gameOfLife.cpp	/^void wait( float seconds){$/;"	f
+wasAlive	gameOfLife.cpp	/^	bool wasAlive;$/;"	m	struct:Cell	file:
+x	gameOfLife.cpp	/^	int x;$/;"	m	struct:Vect	file:
+y	gameOfLife.cpp	/^	int y;$/;"	m	struct:Vect	file:
+~World	gameOfLife.cpp	/^World::~World(){$/;"	f	class:World
